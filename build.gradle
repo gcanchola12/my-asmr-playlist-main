@@ -1,0 +1,48 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'edu.launchcode'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.google.code.gson:gson:2.8.2'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	compile 'com.google.api-client:google-api-client:1.23.0'
+	compile 'com.google.apis:google-api-services-youtube:v3-rev212-1.25.0'
+	compile 'com.google.api-client:google-api-client:1.30.2'
+	compile('mysql:mysql-connector-java')
+	testCompile("junit:junit")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+
+
+}
+
+test {
+	useJUnitPlatform()
+}
+

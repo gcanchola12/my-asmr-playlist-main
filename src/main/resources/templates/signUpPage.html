@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+<div class="form-group" style="width:500px; margin:200px">
+
+<form method="post"  th:object="${user}">
+
+    <H1 style="">Register an Account</H1>
+
+        <label th:for="name">Name:</label>
+        <input class="form-control" th:field="*{name}"/>
+        <span th:errors="*{name}" class=""></span>
+
+        <label th:for="userName">userName:</label>
+        <input class="form-control" th:field="*{userName}"/>
+        <span th:errors="*{userName}" class=""></span>
+
+        <label th:for="password">Password:</label>
+        <input class="form-control" type="password" th:field="*{password}"/>
+        <span th:errors="*{password}" class=""></span>
+
+        <label>Verify Password:</label>
+        <input class="form-control" type="password"/>
+
+        <label th:for="triggers">Enter Your Best Trigger:</label>
+        <input class="form-control" th:field="*{triggers}"/>
+        <span th:errors="*{triggers}" class="error"></span>
+
+        <input style="margin-top:50px" type="submit" value="Register" />
+
+</form>
+</div>
+
+
+</body>
+</html>
