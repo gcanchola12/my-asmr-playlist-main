@@ -38,6 +38,7 @@ public class YoutubeVideoIDs {
         }
 
         System.out.println(ids);
+        index = 0;
         return ids;
     }
 

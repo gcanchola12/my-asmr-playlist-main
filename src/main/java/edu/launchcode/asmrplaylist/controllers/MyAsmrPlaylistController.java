@@ -1,10 +1,12 @@
 package edu.launchcode.asmrplaylist.controllers;
 
 import edu.launchcode.asmrplaylist.backend.client.YoutubeClient;
+import edu.launchcode.asmrplaylist.backend.client.YoutubeVideoIDs;
 import edu.launchcode.asmrplaylist.models.User;
 import edu.launchcode.asmrplaylist.models.UserLogin;
-import edu.launchcode.asmrplaylist.backend.client.YoutubeVideoIDs;
+import edu.launchcode.asmrplaylist.models.Video;
 import edu.launchcode.asmrplaylist.repositories.UserDao;
+import edu.launchcode.asmrplaylist.repositories.VideoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,21 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class SignUpController {
+public class MyAsmrPlaylistController {
 
-    private String triggers;
-    private Long userId;
     private YoutubeVideoIDs youtubeVideoIDs = new YoutubeVideoIDs();
-    public List videoIds;
-    private String name;
+    private List<String> videoIds;
+    private long userId;
 
     // databases //
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private VideoDao videoDao;
 
     @Autowired
     private YoutubeClient youtubeClient;
@@ -46,19 +50,25 @@ public class SignUpController {
     @RequestMapping(value="register", method = RequestMethod.POST)
     public String processSignUpForm(@NotNull Model model, @ModelAttribute @Valid User newUser, Errors errors,
                                     @RequestParam String name, @RequestParam String triggers) {
-
+        YoutubeVideoIDs youtubeVideoIDs = new YoutubeVideoIDs();
+        List<Video> playlist = new ArrayList<>();
+        List<String> videoIds = youtubeVideoIDs.getVideoIDs(triggers);
 
         if (errors.hasErrors()) {
             return "signUpPage";
         }
 
-        videoIds = youtubeVideoIDs.getVideoIDs(triggers);
-
-        for (Object videoId : videoIds) {
+        for (String videoId : videoIds) {
+            Video video = new Video();
+            video.setVideoId(videoId);
+            playlist.add(video);
+            videoDao.save(video);
             model.addAttribute("videoId", videoId);
         }
 
+        newUser.setPlaylist(playlist);
         userDao.save(newUser);
+        userId = newUser.getId();
         model.addAttribute("user", "Welcome, " + name);
         return "playPage";
     }
@@ -74,12 +84,13 @@ public class SignUpController {
     @RequestMapping(value="login", method = RequestMethod.POST)
     public String processLogInForm(Model model, @ModelAttribute UserLogin newUserLogin, @RequestParam String userName,
                                    @RequestParam String password) {
+        YoutubeVideoIDs youtubeVideoIDs = new YoutubeVideoIDs();
+
         for (User user : userDao.findAll()) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-                triggers = user.getTriggers();
-                userId = user.getId();
+                String triggers = user.getTriggers();
                 videoIds = youtubeVideoIDs.getVideoIDs(triggers);
-                name = user.getName();
+                String name = user.getName();
 
                 for (Object videoId : videoIds) {
                     model.addAttribute("videoId", videoId);
@@ -95,13 +106,37 @@ public class SignUpController {
 
     // view playlist //
 
-    @RequestMapping(value = "playlist")
-    public String viewPlaylist(Model model) {
-        model.addAttribute("playlist", videoIds);
-        return "playlistPage";
-    }
+//    @RequestMapping(value = "playlist")
+//    public String viewPlaylist(Model model) {
+//
+//        for (Video video : videoDao.findAll()) {
+//            if ()
+//
+//        }
+//
+//        model.addAttribute("playlist", videoIds);
+//        return "playlistPage";
+//    }
+
+//    // view playlist //
+//
+//    @RequestMapping(value = "playlist/{id}")
+//    public String viewPlaylist(Model model, @PathVariable Long id) {
+//
+//        model.addAttribute("user", userDao.findById(id));
+////        model.addAttribute("playlist", videoIds);
+//        return "playlistPage";
+//    }
 
     // delete from playlist //
+
+//    @RequestMapping(value="remove/{videoId}", method = RequestMethod.GET)
+//    public String displayRemovePage(Model model, @PathVariable String videoId) {
+//        video.setVideoId(videoId);
+//        videoDao.delete(video);
+//        model.addAttribute("playlist", video);
+//        return "redirect:/playlist";
+//    }
 
 //    @RequestMapping(value = "remove", method = RequestMethod.GET)
 //    public String displayRemoveVideoForm(Model model) {
@@ -119,6 +154,7 @@ public class SignUpController {
 //
 //        return "redirect:";
 //    }
+
 }
 
 

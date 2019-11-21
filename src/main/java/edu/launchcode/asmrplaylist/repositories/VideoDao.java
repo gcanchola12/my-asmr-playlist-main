@@ -1,14 +1,11 @@
 package edu.launchcode.asmrplaylist.repositories;
 
-import edu.launchcode.asmrplaylist.models.User;
+import edu.launchcode.asmrplaylist.models.Video;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
-
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface UserDao extends CrudRepository<User, Long> {
+public interface VideoDao extends CrudRepository<Video, Integer> {
 }
-
-
