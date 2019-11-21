@@ -3,21 +3,24 @@
 
 <head th:replace="fragments :: head"></head>
 
-<body>
+    <body>
 
-<nav th:replace="fragments :: nav"></nav>
-
-
-    <a href="/add">Add</a>
-    <a href="/remove">Remove</a>
+        <nav th:replace="fragments :: nav"></nav>
 
 
-<div th:each="video : ${playlist}">
-<div>
-    <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-    <button th:href = "'/menu/remove/' + *{videoId}"> Remove Video</button>
-</div>
-</body>
+        <a href="/add">Add</a>
+        <a href="/remove">Remove</a>
+
+
+        <div th:each="video : ${playlist}">
+            <div>
+                <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            </div>
+
+           <a th:href = "'/remove/' + *{video}"> <button>Remove Video</button></a>
+
+        </div>
+    </body>
 </html>

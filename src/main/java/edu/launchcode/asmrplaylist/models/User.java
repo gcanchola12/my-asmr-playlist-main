@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @OneToMany
     @JoinColumn(name="user_id")
@@ -37,7 +37,7 @@ public class User {
 
     public User() { }
 
-    public User(long id, String name, String userName, String password, String triggers) {
+    public User(Long id, String name, String userName, String password, String triggers) {
         this.id = id;
         this.name = name;
         this.userName = userName;
@@ -46,11 +46,9 @@ public class User {
     }
 
 
-    public long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
