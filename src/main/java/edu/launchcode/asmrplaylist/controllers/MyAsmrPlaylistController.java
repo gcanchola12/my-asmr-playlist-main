@@ -86,7 +86,6 @@ public class MyAsmrPlaylistController {
 
         for (User user : userDao.findAll()) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-                
                 List<Video>playlist = user.getPlaylist();
                 String name = user.getName();
                 userId = user.getId();
@@ -113,7 +112,7 @@ public class MyAsmrPlaylistController {
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
-              playlist = user.getPlaylist();
+                playlist = user.getPlaylist();
             }
         }
 
@@ -142,16 +141,6 @@ public class MyAsmrPlaylistController {
 
         return "redirect:/playlist";
     }
-//
-//    @RequestMapping(value = "remove", method = RequestMethod.POST)
-//    public String processRemoveVideoForm(@RequestParam int[] cheeseIds) {
-//
-//        for (int cheeseId : cheeseIds) {
-//            cheeseDao.delete(cheeseId);
-//        }
-//
-//        return "redirect:";
-//    }
 
 }
 
