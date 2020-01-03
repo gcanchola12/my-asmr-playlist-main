@@ -3,17 +3,21 @@
 
 <head th:replace="fragments :: head"></head>
 
-<body>
+<body class="container-fluid bg-dark text-white">
 
 <nav th:replace="fragments :: nav"></nav>
 
 <div th:each="video : ${playlist}">
-    <div class="d-flex justify-content-center">
-        <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <div class="d-flex justify-content-center m-5 media">
+                <iframe width="300" height="200" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            <div class="media-body m-5">
+                <a th:href = "'/remove/' + *{video}"> (-) Remove Video</a>
+            </div>
     </div>
 
-    <a th:href = "'/remove/' + *{video}"> <button>Remove Video</button></a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

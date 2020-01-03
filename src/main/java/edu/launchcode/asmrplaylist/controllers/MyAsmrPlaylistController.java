@@ -80,7 +80,7 @@ public class MyAsmrPlaylistController {
         return "loginPage";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "loggedIn", method = RequestMethod.POST)
     public String processLogInForm(Model model, @ModelAttribute UserLogin newUserLogin, @RequestParam String userName,
                                    @RequestParam String password) {
 
@@ -101,6 +101,8 @@ public class MyAsmrPlaylistController {
         model.addAttribute("errorMessage", "Invalid Username or Password");
         return "loginPage";
     }
+
+    //TODO: create a homepage //
 
     // view playlist //
 

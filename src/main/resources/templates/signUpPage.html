@@ -3,34 +3,66 @@
 
 <head th:replace="fragments :: head"></head>
 
-<body>
+<body class="container-fluid bg-dark text-white">
 
-<div class="form-group" style="width:500px; margin:200px">
+<div class="d-flex justify-content-center text-center m-5">
+    <h1>My ASMR Playlist</h1>
+</div>
+
+<div class="d-flex justify-content-center text-center m-5">
+
+    <!-- TODO: fix error messaging and add a border-->
+
 
 <form method="post"  th:object="${user}">
 
-    <H1 style="">Register an Account</H1>
+    <h4>Sign Up</h4>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="sr-only" th:for="name">Name</label>
+            <input class="form-control" placeholder="First Name" th:field="*{name}"/>
+            <p class="text-danger" th:errors="*{name}"></p>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="sr-only">Last Name</label>
+            <input class="form-control" placeholder="Last Name (Optional)"/>
+        </div>
+    </div>
 
-        <label th:for="name">Name:</label>
-        <input class="form-control" th:field="*{name}"/>
-        <span th:errors="*{name}" class=""></span>
+        <div class="form-group">
+            <label class="sr-only" th:for="userName">userName:</label>
+            <input class="form-control" placeholder="New Username" th:field="*{userName}"/>
+            <p class="text-danger" th:errors="*{userName}"></p>
+        </div>
 
-        <label th:for="userName">userName:</label>
-        <input class="form-control" th:field="*{userName}"/>
-        <span th:errors="*{userName}" class=""></span>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="sr-only" th:for="password">Password</label>
+            <input class="form-control" placeholder="New Password" type="password" th:field="*{password}"/>
+            <p class="text-danger" th:errors="*{password}"></p>
+        </div>
 
-        <label th:for="password">Password:</label>
-        <input class="form-control" type="password" th:field="*{password}"/>
-        <span th:errors="*{password}" class=""></span>
+        <div class="form-group col-md-6">
+            <label class="sr-only">Verify Password</label>
+            <input class="form-control" placeholder="Verify Password" type="password"/>
+        </div>
+    </div>
 
-        <label>Verify Password:</label>
-        <input class="form-control" type="password"/>
+    <div class="form-group">
+        <label class="sr-only" th:for="triggers">triggers</label>
+        <input class="form-control" placeholder="What are your triggers?" th:field="*{triggers}"/>
+        <p class="text-danger" th:errors="*{triggers}"></p>
+    </div>
 
-        <label th:for="triggers">Enter Your Best Trigger:</label>
-        <input class="form-control" th:field="*{triggers}"/>
-        <span th:errors="*{triggers}" class="error"></span>
+        <div class="checkbox m-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
 
-        <input style="margin-top:50px" type="submit" value="Register" />
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register"/>
+
+        <p class="mt-5 mb-3">Already have an account? <a class="text-primary" href="/login">Sign In</a></p>
 
 </form>
 </div>
