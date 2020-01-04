@@ -11,8 +11,6 @@
 
 <div class="d-flex justify-content-center text-center m-5">
 
-    <!-- TODO: update controller and add this to form: th:action="@{home}" -->
-
     <form class="form-signin" method="post" th:action="@{loggedIn}" th:object="${userLogin}">
 
         <p class="text.danger" th:text="${errorMessage}"></p>

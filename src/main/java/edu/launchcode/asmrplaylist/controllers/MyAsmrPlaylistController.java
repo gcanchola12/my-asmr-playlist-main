@@ -72,6 +72,8 @@ public class MyAsmrPlaylistController {
         return "playPage";
     }
 
+    // TODO: create an additional trigger form so I can hard code in the search term ASMR //
+
     // User LogIn //
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -86,13 +88,13 @@ public class MyAsmrPlaylistController {
 
         for (User user : userDao.findAll()) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
-                List<Video>playlist = user.getPlaylist();
+                List<Video> playlist = user.getPlaylist();
                 String name = user.getName();
                 userId = user.getId();
 
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
-                    model.addAttribute("user", "Welcome back, " + name);
+                    model.addAttribute("user", "Welcome, " + name);
                     return "playPage";
                 }
             }
@@ -102,7 +104,24 @@ public class MyAsmrPlaylistController {
         return "loginPage";
     }
 
-    //TODO: create a homepage //
+    // Homepage //
+
+    @RequestMapping(value = "home")
+    public String displayHomepage(Model model) {
+
+        for (User user : userDao.findAll()) {
+            if (user.getId() == userId) {
+                List<Video> playlist = user.getPlaylist();
+                String name = user.getName();
+
+                for (Video video : playlist) {
+                    model.addAttribute("videoId", video.getVideoId());
+                    model.addAttribute("user", "Hi, " + name);
+                }
+            }
+        }
+        return "playPage";
+    }
 
     // view playlist //
 
@@ -111,10 +130,12 @@ public class MyAsmrPlaylistController {
 
         List<String> videoIds = new ArrayList<>();
         List<Video> playlist = new ArrayList<>();
+        String name = new String();
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
                 playlist = user.getPlaylist();
+                name = user.getName();
             }
         }
 
@@ -123,6 +144,7 @@ public class MyAsmrPlaylistController {
             videoIds.add(videoId);
         }
 
+        model.addAttribute("user", "Hi, " + name);
         model.addAttribute("playlist", videoIds);
         return "playlistPage";
     }
@@ -135,16 +157,19 @@ public class MyAsmrPlaylistController {
                 for (Video video : user.getPlaylist()) {
                     if (video.getVideoId().equals(videoId)) {
                         videoDao.delete(video);
-
                     }
                 }
             }
         }
-
         return "redirect:/playlist";
     }
 
+        //TODO: figure out how to add a video //
+        // TODO: add functionality to create a new playlist //
+
 }
+
+
 
 
 
