@@ -18,12 +18,13 @@
         <label class="sr-only" th:for="userName">Username</label>
         <input class="form-control" placeholder="Username" th:field="*{userName}"/>
 
-        <label class="sr-only" th:for="password">Password:</label>
+        <label class="sr-only" th:for="password">Password</label>
         <input class="form-control" type="password" placeholder="Password" th:field="*{password}"/>
 
         <div class="checkbox m-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"/>
+                Remember me
             </label>
         </div>
 

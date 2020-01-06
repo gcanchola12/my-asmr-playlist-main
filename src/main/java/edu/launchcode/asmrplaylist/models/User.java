@@ -32,19 +32,16 @@ public class User {
     @NotNull
     @Size(min = 3, max = 15)
 
-    @NotNull
-    private String triggers;
 
     public User() { }
 
-    public User(Long id, String name, String userName, String password, String triggers) {
+    public User(Long id, String name, String userName, String password) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
-        this.triggers = triggers;
-    }
 
+    }
 
     public Long getId() { return id; }
 
@@ -74,14 +71,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getTriggers() {
-        return triggers;
-    }
-
-    public void setTriggers(String triggers) {
-        this.triggers = triggers;
     }
 
     public List<Video> getPlaylist() {

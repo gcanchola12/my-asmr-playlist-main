@@ -49,14 +49,16 @@
     </div>
 
     <div class="form-group">
-        <label class="sr-only" th:for="triggers">triggers</label>
-        <input class="form-control" placeholder="What are your triggers?" th:field="*{triggers}"/>
-        <p class="text-danger" th:errors="*{triggers}"></p>
+        <label class="sr-only">triggers</label>
+        <input class="" type="checkbox" name="triggersList" value="Tapping" id="tapping"/> Tapping
+        <input class="" type="checkbox" name="triggersList" value="Role play" id="role-play"/> Role Plays
+        <input class="" type="checkbox" name="triggersList" value="beauty" id="beauty"/> Spa and Make-up
+        <!-- <p class="text-danger" th:errors="*{triggers}"></p> -->
     </div>
 
         <div class="checkbox m-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me" /> Remember me
             </label>
         </div>
 

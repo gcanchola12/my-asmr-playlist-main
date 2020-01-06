@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,10 +48,13 @@ public class MyAsmrPlaylistController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String processSignUpForm(@NotNull Model model, @ModelAttribute @Valid User newUser, Errors errors,
-                                    @RequestParam String name, @RequestParam String triggers) {
+                                    @RequestParam String name, @RequestParam String[] triggersList) {
+
+
 
         YoutubeVideoIDs youtubeVideoIDs = new YoutubeVideoIDs();
         List<Video> playlist = new ArrayList<>();
+        String triggers = StringUtils.join(triggersList, " ");
         List<String> videoIds = youtubeVideoIDs.getVideoIDs(triggers);
 
         if (errors.hasErrors()) {
