@@ -37,6 +37,7 @@ public class YoutubeVideoIDs {
             System.out.println(id);
         }
 
+        System.out.println(searchTerm);
         System.out.println(ids);
         index = 0;
         return ids;

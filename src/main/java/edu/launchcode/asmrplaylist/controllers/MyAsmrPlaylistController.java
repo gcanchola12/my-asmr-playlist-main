@@ -51,7 +51,6 @@ public class MyAsmrPlaylistController {
                                     @RequestParam String name, @RequestParam String[] triggersList) {
 
 
-
         YoutubeVideoIDs youtubeVideoIDs = new YoutubeVideoIDs();
         List<Video> playlist = new ArrayList<>();
         String triggers = StringUtils.join(triggersList, " ");
@@ -99,10 +98,12 @@ public class MyAsmrPlaylistController {
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Welcome, " + name);
-                    return "playPage";
+                    System.out.println(userId);
+                    return "playPage"; // change this to a redirect: home + userId //
                 }
             }
         }
+
 
         model.addAttribute("errorMessage", "Invalid Username or Password");
         return "loginPage";
@@ -110,7 +111,7 @@ public class MyAsmrPlaylistController {
 
     // Homepage //
 
-    @RequestMapping(value = "home")
+    @RequestMapping(value = "home") // add a path variable with userId//
     public String displayHomepage(Model model) {
 
         for (User user : userDao.findAll()) {
@@ -121,6 +122,7 @@ public class MyAsmrPlaylistController {
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Hi, " + name);
+
                 }
             }
         }
@@ -132,12 +134,15 @@ public class MyAsmrPlaylistController {
     @RequestMapping(value = "playlist")
     public String viewPlaylist(Model model) {
 
+        System.out.println(userId);
+
         List<String> videoIds = new ArrayList<>();
         List<Video> playlist = new ArrayList<>();
         String name = new String();
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
+                System.out.println("something");
                 playlist = user.getPlaylist();
                 name = user.getName();
             }

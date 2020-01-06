@@ -29,10 +29,6 @@ public class User {
     @Size(min = 3, max = 15)
     private String password;
 
-    @NotNull
-    @Size(min = 3, max = 15)
-
-
     public User() { }
 
     public User(Long id, String name, String userName, String password) {

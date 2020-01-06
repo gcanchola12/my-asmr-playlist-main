@@ -23,6 +23,7 @@
             <input class="form-control" placeholder="First Name" th:field="*{name}"/>
             <p class="text-danger" th:errors="*{name}"></p>
         </div>
+
         <div class="form-group col-md-6">
             <label class="sr-only">Last Name</label>
             <input class="form-control" placeholder="Last Name (Optional)"/>
@@ -48,19 +49,52 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="sr-only">triggers</label>
-        <input class="" type="checkbox" name="triggersList" value="Tapping" id="tapping"/> Tapping
-        <input class="" type="checkbox" name="triggersList" value="Role play" id="role-play"/> Role Plays
-        <input class="" type="checkbox" name="triggersList" value="beauty" id="beauty"/> Spa and Make-up
-        <!-- <p class="text-danger" th:errors="*{triggers}"></p> -->
+    <!-- trigger questions begin -->
+
+    <div class="text-left">
+        <h6>What Triggers You? <small class="text-muted">(select all that apply)</small></h6>
     </div>
 
-        <div class="checkbox m-3">
-            <label>
-                <input type="checkbox" value="remember-me" /> Remember me
-            </label>
+    <span class="form-row d-flex">
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Tapping ASMR" id="tapping"/>
+            <label class="form-check-label">Tapping Sounds</label>
         </div>
+
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Role play ARMR" id="role-play"/>
+            <label class="form-check-label">Role-Play</label>
+        </div>
+
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Spa ASMR" id="Spa"/>
+            <label class="form-check-label">Spa</label>
+        </div>
+
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Food ASMR" id="Food"/>
+            <label class="form-check-label">Chewing</label>
+        </div>
+    </span>
+
+    <span class="form-row">
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Make-up ASMR" id="Make-up"/>
+            <label class="form-check-label">Make-Up</label>
+        </div>
+
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Inaudible Whispering ASMR" id="Inaudible Whispering"/>
+            <label class="form-check-label">Inaudible Whispering</label>
+        </div>
+
+        <div class="form-check form-check-inline form-group">
+            <input class="form-check-input" type="checkbox" name="triggersList" value="Audible Whispering ASMR" id="Audible Whispering"/>
+            <label class="form-check-label">Audible Whispering</label>
+        </div>
+
+    </span>
+        <!-- <p class="text-danger" th:errors="*{triggers}"></p> -->
 
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register"/>
 
