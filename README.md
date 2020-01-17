@@ -1,6 +1,6 @@
 # My ASMR Playlist
 
-An app that allows ASMR enthusiests search for specific videos that appeal to them, store them and watch them distraction free. The app will have simple, user-friendly playlist management features that will resemble Tinder. 
+An app that allows ASMR enthusiests to search for specific videos that appeal to them, store them and watch them distraction free. The app will have simple, user-friendly playlist management features that will resemble Tinder. 
 
 ## Getting Started
 
