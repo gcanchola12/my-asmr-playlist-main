@@ -8,7 +8,7 @@ public class UserLogin {
     public UserLogin() {
     }
 
-    public UserLogin(String userName, String password) { this.userName = userName;this.password = password; }
+    public UserLogin(String userName, String password) { this.userName = userName; this.password = password; }
 
     public void setUserName(String userName) {
         this.userName = userName;

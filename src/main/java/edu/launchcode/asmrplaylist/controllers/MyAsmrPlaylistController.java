@@ -25,8 +25,6 @@ import java.util.List;
 @Controller
 public class MyAsmrPlaylistController {
 
-    private Long userId;
-
     // databases //
 
     @Autowired
@@ -70,9 +68,9 @@ public class MyAsmrPlaylistController {
 
         newUser.setPlaylist(playlist);
         userDao.save(newUser);
-        userId = newUser.getId();
+        Long userId = newUser.getId();
         model.addAttribute("user", "Welcome, " + name);
-        return "playPage";
+        return "redirect:home/" + userId; // change this to a redirect: home + userId //
     }
 
     // TODO: create an additional trigger form so I can hard code in the search term ASMR //
@@ -93,13 +91,13 @@ public class MyAsmrPlaylistController {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
                 List<Video> playlist = user.getPlaylist();
                 String name = user.getName();
-                userId = user.getId();
+                Long userId = user.getId();
 
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Welcome, " + name);
                     System.out.println(userId);
-                    return "playPage"; // change this to a redirect: home + userId //
+                    return "redirect:home/" + userId; // change this to a redirect: home + userId //
                 }
             }
         }
@@ -111,34 +109,37 @@ public class MyAsmrPlaylistController {
 
     // Homepage //
 
-    @RequestMapping(value = "home") // add a path variable with userId//
-    public String displayHomepage(Model model) {
+    @RequestMapping(value = "home/{userId}") // add a path variable with userId//
+    public String displayHomepage(Model model, @PathVariable Long userId) {
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
                 List<Video> playlist = user.getPlaylist();
                 String name = user.getName();
+                model.addAttribute("userId", userId);
 
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Hi, " + name);
-
                 }
             }
         }
-        return "playPage";
+
+        return "playPage"; // change this to a redirect: home + userId //
     }
 
-    // view playlist //
+//     view playlist //
 
-    @RequestMapping(value = "playlist")
-    public String viewPlaylist(Model model) {
+    @RequestMapping(value = "playlist/{userId}")
+    public String viewPlaylist(Model model, @PathVariable Long userId) {
 
         System.out.println(userId);
 
         List<String> videoIds = new ArrayList<>();
         List<Video> playlist = new ArrayList<>();
         String name = new String();
+
+        // adjust this to grab the userId from the url or from query
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
@@ -155,14 +156,17 @@ public class MyAsmrPlaylistController {
 
         model.addAttribute("user", "Hi, " + name);
         model.addAttribute("playlist", videoIds);
+        model.addAttribute("userId", userId);
         return "playlistPage";
     }
 
-    @RequestMapping(value = "remove/{videoId}", method = RequestMethod.GET)
-    public String displayRemoveVideoForm(Model model, @PathVariable String videoId) {
+    // create a query for videoId
+    @RequestMapping(value = "playlist/{userId}/remove/{videoId}", method = RequestMethod.GET)
+    public String displayRemoveVideoForm(Model model, @PathVariable Long userId, @PathVariable String videoId) {
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
+
                 for (Video video : user.getPlaylist()) {
                     if (video.getVideoId().equals(videoId)) {
                         videoDao.delete(video);
@@ -170,25 +174,25 @@ public class MyAsmrPlaylistController {
                 }
             }
         }
-        return "redirect:/playlist";
+        return "redirect:/playlist/" + userId;
     }
 
         //TODO: figure out how to add a video //
         // TODO: add functionality to create a new playlist //
-
+//
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//

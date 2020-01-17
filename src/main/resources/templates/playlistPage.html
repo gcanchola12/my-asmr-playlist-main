@@ -16,7 +16,7 @@
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                 </iframe>
             <div class="media-body m-5">
-                <a th:href = "'/remove/' + *{video}"> (-) Remove Video</a>
+                <a th:href = "@{${userId} + '/remove/' + *{video}}"> (-) Remove Video</a>
             </div>
     </div>
 
