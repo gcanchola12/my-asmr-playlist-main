@@ -13,6 +13,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    // should I remove the playlist and make relationship directly to the user_id?
+
     @OneToMany
     @JoinColumn(name="user_id")
     private List<Video> playlist = new ArrayList<>();

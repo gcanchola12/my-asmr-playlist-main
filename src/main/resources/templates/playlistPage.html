@@ -12,12 +12,12 @@
     <!-- TODO: add play next functionality -->
 
     <div class="d-flex justify-content-center m-5 media">
-                <iframe width="300" height="200" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                </iframe>
-            <div class="media-body m-5">
-                <a th:href = "@{${userId} + '/remove/' + *{video}}"> (-) Remove Video</a>
-            </div>
+        <iframe width="300" height="200" th:src="@{https://www.youtube.com/embed/} + *{video}" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
+        <div class="media-body m-5">
+            <a th:href = "@{${userId} + '/remove/' + *{video}}"> (-) Remove Video</a>
+        </div>
     </div>
 
 </div>

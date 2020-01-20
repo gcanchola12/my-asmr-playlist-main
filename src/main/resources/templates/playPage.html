@@ -5,23 +5,23 @@
 
 <div class="container-fluid bg-dark text-white">
 
-<!-- TODO: add gradient and shadows and style the video-->
+    <!-- TODO: add gradient and shadows and style the video-->
 
-<nav th:replace="fragments :: nav"></nav>
+    <nav th:replace="fragments :: nav"></nav>
 
-<div class="d-flex justify-content-center m-5">
-    <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/} + ${videoId}" frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
-</div>
+    <div class="d-flex justify-content-center m-5">
+        <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/} + ${videoId}" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
+    </div>
 
 
     <!-- TODO: add play next functionality -->
 
-<div class="row d-flex justify-content-center m-5">
-    <button id="previous" class="col-sm-2 font-weight-bold">previous</button>
-    <button id="next" class="col-sm-2 font-weight-bold">Next</button>
-</div>
+    <div class="row d-flex justify-content-center m-5">
+        <button id="previous" class="col-sm-2 font-weight-bold">previous</button>
+        <button id="next" class="col-sm-2 font-weight-bold">Next</button>
+    </div>
 
 </div>
 

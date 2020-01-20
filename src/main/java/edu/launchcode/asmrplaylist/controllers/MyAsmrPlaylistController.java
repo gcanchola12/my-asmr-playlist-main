@@ -25,6 +25,8 @@ import java.util.List;
 @Controller
 public class MyAsmrPlaylistController {
 
+    Long userId;
+
     // databases //
 
     @Autowired
@@ -44,7 +46,7 @@ public class MyAsmrPlaylistController {
         return "signUpPage";
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "registered", method = RequestMethod.POST)
     public String processSignUpForm(@NotNull Model model, @ModelAttribute @Valid User newUser, Errors errors,
                                     @RequestParam String name, @RequestParam String[] triggersList) {
 
@@ -68,9 +70,9 @@ public class MyAsmrPlaylistController {
 
         newUser.setPlaylist(playlist);
         userDao.save(newUser);
-        Long userId = newUser.getId();
+        userId = newUser.getId();
         model.addAttribute("user", "Welcome, " + name);
-        return "redirect:home/" + userId; // change this to a redirect: home + userId //
+        return "playPage";
     }
 
     // TODO: create an additional trigger form so I can hard code in the search term ASMR //
@@ -97,7 +99,7 @@ public class MyAsmrPlaylistController {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Welcome, " + name);
                     System.out.println(userId);
-                    return "redirect:home/" + userId; // change this to a redirect: home + userId //
+                    return "playPage"; // change this to a redirect: home + userId //
                 }
             }
         }
@@ -109,24 +111,24 @@ public class MyAsmrPlaylistController {
 
     // Homepage //
 
-    @RequestMapping(value = "home/{userId}") // add a path variable with userId//
-    public String displayHomepage(Model model, @PathVariable Long userId) {
-
-        for (User user : userDao.findAll()) {
-            if (user.getId() == userId) {
-                List<Video> playlist = user.getPlaylist();
-                String name = user.getName();
-                model.addAttribute("userId", userId);
-
-                for (Video video : playlist) {
-                    model.addAttribute("videoId", video.getVideoId());
-                    model.addAttribute("user", "Hi, " + name);
-                }
-            }
-        }
-
-        return "playPage"; // change this to a redirect: home + userId //
-    }
+//    @RequestMapping(value = "home/{userId}") // add a path variable with userId//
+//    public String displayHomepage(Model model, @PathVariable Long userId) {
+//
+//        for (User user : userDao.findAll()) {
+//            if (user.getId() == userId) {
+//                List<Video> playlist = user.getPlaylist();
+//                String name = user.getName();
+//                model.addAttribute("userId", userId);
+//
+//                for (Video video : playlist) {
+//                    model.addAttribute("videoId", video.getVideoId());
+//                    model.addAttribute("user", "Hi, " + name);
+//                }
+//            }
+//        }
+//
+//        return "playPage"; // change this to a redirect: home + userId //
+//    }
 
 //     view playlist //
 
@@ -177,8 +179,8 @@ public class MyAsmrPlaylistController {
         return "redirect:/playlist/" + userId;
     }
 
-        //TODO: figure out how to add a video //
-        // TODO: add functionality to create a new playlist //
+    //TODO: figure out how to add a video //
+    // TODO: add functionality to create a new playlist //
 //
 }
 //

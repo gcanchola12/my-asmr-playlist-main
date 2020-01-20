@@ -14,21 +14,21 @@
     <!-- TODO: fix error messaging and add a border-->
 
 
-<form method="post"  th:object="${user}">
+    <form method="post" th:action="@{registered}"  th:object="${user}">
 
-    <h4>Sign Up</h4>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label class="sr-only" th:for="name">Name</label>
-            <input class="form-control" placeholder="First Name" th:field="*{name}"/>
-            <p class="text-danger" th:errors="*{name}"></p>
-        </div>
+        <h4>Sign Up</h4>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="sr-only" th:for="name">Name</label>
+                <input class="form-control" placeholder="First Name" th:field="*{name}"/>
+                <p class="text-danger" th:errors="*{name}"></p>
+            </div>
 
-        <div class="form-group col-md-6">
-            <label class="sr-only">Last Name</label>
-            <input class="form-control" placeholder="Last Name (Optional)"/>
+            <div class="form-group col-md-6">
+                <label class="sr-only">Last Name</label>
+                <input class="form-control" placeholder="Last Name (Optional)"/>
+            </div>
         </div>
-    </div>
 
         <div class="form-group">
             <label class="sr-only" th:for="userName">userName:</label>
@@ -36,26 +36,26 @@
             <p class="text-danger" th:errors="*{userName}"></p>
         </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label class="sr-only" th:for="password">Password</label>
-            <input class="form-control" placeholder="New Password" type="password" th:field="*{password}"/>
-            <p class="text-danger" th:errors="*{password}"></p>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="sr-only" th:for="password">Password</label>
+                <input class="form-control" placeholder="New Password" type="password" th:field="*{password}"/>
+                <p class="text-danger" th:errors="*{password}"></p>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="sr-only">Verify Password</label>
+                <input class="form-control" placeholder="Verify Password" type="password"/>
+            </div>
         </div>
 
-        <div class="form-group col-md-6">
-            <label class="sr-only">Verify Password</label>
-            <input class="form-control" placeholder="Verify Password" type="password"/>
+        <!-- trigger questions begin -->
+
+        <div class="text-left">
+            <h6>What Triggers You? <small class="text-muted">(select all that apply)</small></h6>
         </div>
-    </div>
 
-    <!-- trigger questions begin -->
-
-    <div class="text-left">
-        <h6>What Triggers You? <small class="text-muted">(select all that apply)</small></h6>
-    </div>
-
-    <span class="form-row d-flex">
+        <span class="form-row d-flex">
         <div class="form-check form-check-inline form-group">
             <input class="form-check-input" type="checkbox" name="triggersList" value="Tapping ASMR" id="tapping"/>
             <label class="form-check-label">Tapping Sounds</label>
@@ -77,7 +77,7 @@
         </div>
     </span>
 
-    <span class="form-row">
+        <span class="form-row">
         <div class="form-check form-check-inline form-group">
             <input class="form-check-input" type="checkbox" name="triggersList" value="Make-up ASMR" id="Make-up"/>
             <label class="form-check-label">Make-Up</label>
@@ -100,7 +100,7 @@
 
         <p class="mt-5 mb-3">Already have an account? <a class="text-primary" href="/login">Sign In</a></p>
 
-</form>
+    </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -112,3 +112,4 @@
 
 </body>
 </html>
+
