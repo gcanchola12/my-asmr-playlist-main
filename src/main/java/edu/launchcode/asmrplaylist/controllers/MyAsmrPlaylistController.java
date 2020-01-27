@@ -62,6 +62,8 @@ public class MyAsmrPlaylistController {
             return "signUpPage";
         }
 
+        // TODO add code to delete null videoIds
+
         for (String videoId : videoIds) {
             Video video = new Video();
             video.setVideoId(videoId);
@@ -74,7 +76,7 @@ public class MyAsmrPlaylistController {
         userDao.save(newUser);
         userId = newUser.getId();
         model.addAttribute("user", "Welcome, " + name);
-        model.addAttribute("userId", userId);
+        model.addAttribute("userId", userId); // see what happens when this is removed
         return "playPage";
     }
 
@@ -94,16 +96,16 @@ public class MyAsmrPlaylistController {
 
         for (User user : userDao.findAll()) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+
                 List<Video> playlist = user.getPlaylist();
-                String name = user.getName();
-                Long userId = user.getId();
+                userId = user.getId();
 
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
-                    model.addAttribute("user", "Welcome, " + name);
-                    model.addAttribute("userId", userId);
+                    model.addAttribute("user", "Welcome, " + user.getName());
+                    model.addAttribute("userId", user.getId());
                     System.out.println(userId);
-                    return "playPage"; // change this to a redirect: home + userId //
+                    return "playPage";
                 }
             }
         }
@@ -115,23 +117,26 @@ public class MyAsmrPlaylistController {
 
     // Homepage //
 
-    @RequestMapping(value = "home") // add a path variable with userId//
+    @RequestMapping(value = "home")
     public String displayHomepage(Model model, @RequestParam Long userId) {
+
+        Object user1 = userDao.findById(userId);
+        System.out.println(user1);
+        System.out.println("it worked!");
 
         for (User user : userDao.findAll()) {
             if (user.getId() == userId) {
                 List<Video> playlist = user.getPlaylist();
-                String name = user.getName();
                 model.addAttribute("userId", userId);
+                model.addAttribute("user", "Hi, " + user.getName());
 
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
-                    model.addAttribute("user", "Hi, " + name);
                 }
             }
         }
 
-        return "playPage"; // change this to a redirect: home + userId //
+        return "playPage";
     }
 
 //     view playlist //
@@ -139,30 +144,25 @@ public class MyAsmrPlaylistController {
     @RequestMapping(value = "playlist/{userId}")
     public String viewPlaylist(Model model, @PathVariable Long userId) {
 
-        System.out.println(userId);
+        Object user1 = userDao.findById(userId);
+        System.out.println(user1);
 
-        List<String> videoIds = new ArrayList<>();
-        List<Video> playlist = new ArrayList<>();
-        String name = new String();
-
-        // adjust this to grab the userId from the url or from query
+        ArrayList<String> playlist = new ArrayList<>();
 
         for (User user : userDao.findAll()) {
+
             if (user.getId() == userId) {
-                System.out.println("something");
-                playlist = user.getPlaylist();
-                name = user.getName();
+                System.out.println("sql found me");
+                model.addAttribute("user", "Hi, " + user.getName());
+                model.addAttribute("userId", userId);
+
+                for (Video video : user.getPlaylist()) {
+                    String videoId = video.getVideoId();
+                    playlist.add(videoId);
+                }
             }
         }
-
-        for (Video video : playlist) {
-            String videoId = video.getVideoId();
-            videoIds.add(videoId);
-        }
-
-        model.addAttribute("user", "Hi, " + name);
-        model.addAttribute("playlist", videoIds);
-        model.addAttribute("userId", userId);
+        model.addAttribute("playlist", playlist);
         return "playlistPage";
     }
 
@@ -185,6 +185,7 @@ public class MyAsmrPlaylistController {
 
     //TODO: figure out how to add a video //
     // TODO: add functionality to create a new playlist //
+    // TODO: refactor the template names
 //
 }
 //
