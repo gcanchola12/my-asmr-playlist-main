@@ -25,6 +25,8 @@ import java.util.List;
 @Controller
 public class MyAsmrPlaylistController {
 
+    //TODO need to work on getting rid of this variable and including it within each method.
+
     Long userId;
 
     // databases //
@@ -72,6 +74,7 @@ public class MyAsmrPlaylistController {
         userDao.save(newUser);
         userId = newUser.getId();
         model.addAttribute("user", "Welcome, " + name);
+        model.addAttribute("userId", userId);
         return "playPage";
     }
 
@@ -98,6 +101,7 @@ public class MyAsmrPlaylistController {
                 for (Video video : playlist) {
                     model.addAttribute("videoId", video.getVideoId());
                     model.addAttribute("user", "Welcome, " + name);
+                    model.addAttribute("userId", userId);
                     System.out.println(userId);
                     return "playPage"; // change this to a redirect: home + userId //
                 }
@@ -111,24 +115,24 @@ public class MyAsmrPlaylistController {
 
     // Homepage //
 
-//    @RequestMapping(value = "home/{userId}") // add a path variable with userId//
-//    public String displayHomepage(Model model, @PathVariable Long userId) {
-//
-//        for (User user : userDao.findAll()) {
-//            if (user.getId() == userId) {
-//                List<Video> playlist = user.getPlaylist();
-//                String name = user.getName();
-//                model.addAttribute("userId", userId);
-//
-//                for (Video video : playlist) {
-//                    model.addAttribute("videoId", video.getVideoId());
-//                    model.addAttribute("user", "Hi, " + name);
-//                }
-//            }
-//        }
-//
-//        return "playPage"; // change this to a redirect: home + userId //
-//    }
+    @RequestMapping(value = "home") // add a path variable with userId//
+    public String displayHomepage(Model model, @RequestParam Long userId) {
+
+        for (User user : userDao.findAll()) {
+            if (user.getId() == userId) {
+                List<Video> playlist = user.getPlaylist();
+                String name = user.getName();
+                model.addAttribute("userId", userId);
+
+                for (Video video : playlist) {
+                    model.addAttribute("videoId", video.getVideoId());
+                    model.addAttribute("user", "Hi, " + name);
+                }
+            }
+        }
+
+        return "playPage"; // change this to a redirect: home + userId //
+    }
 
 //     view playlist //
 
