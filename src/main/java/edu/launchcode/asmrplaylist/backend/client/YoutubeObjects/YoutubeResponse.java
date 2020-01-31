@@ -2,6 +2,9 @@ package edu.launchcode.asmrplaylist.backend.client.YoutubeObjects;
 
 import java.util.List;
 
+// When API is called, the Youtube returns a full playlist with several items made up of their own data. The playlist data pulled from
+// Json is used in this object.
+
 public class YoutubeResponse {
 
     private String kind;
@@ -9,7 +12,7 @@ public class YoutubeResponse {
     private String nextPageToken;
     private String regionCode;
     private PageInfo pageInfo;
-    private List<Item> items;
+    private List<Item> items; // each item contains video data
 
     public YoutubeResponse(String kind, String etag, String nextPageToken, String regionCode, PageInfo pageInfo, List<Item> items) {
         this.kind = kind;

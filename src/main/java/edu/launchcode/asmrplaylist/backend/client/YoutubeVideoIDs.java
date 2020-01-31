@@ -6,6 +6,8 @@ import edu.launchcode.asmrplaylist.backend.client.YoutubeObjects.YoutubeResponse
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class YoutubeVideoIDs {
 
     private String apiString;
@@ -14,7 +16,7 @@ public class YoutubeVideoIDs {
     private List<String> ids = new ArrayList<>();
     private int index = 0;
 
-
+   // Calls Youtube DATA Api and returns a list of video Ids
 
     public YoutubeVideoIDs() {
     }
@@ -24,21 +26,17 @@ public class YoutubeVideoIDs {
         json = youtubeClient.getYoutubeVideos(searchTerm);
         Gson gson = new Gson();
         System.out.println(json);
-        YoutubeResponse youtubeResponse = gson.fromJson(json, YoutubeResponse.class);
-        List items = youtubeResponse.getItems();
+        YoutubeResponse youtubeResponse = gson.fromJson(json, YoutubeResponse.class); // Using Gson to deserialize Json
+        List items = youtubeResponse.getItems(); // grabs each item from response, which contain a video Id
 
-        // loops through ea. item //
+        // loops through ea. item to pull the id and adds it to the ids list //
 
         for (Object item : items ) {
-            id = youtubeResponse.getItems().get(index).getId().getVideoId();
+            id = youtubeResponse.getItems().get(index).getId().getVideoId(); // should I use this as an argument in ids.add(id)? Think about it
             ids.add(id);
-            index ++;
-            System.out.println(item);
-            System.out.println(id);
+            index ++; // can't remember why I needed a counter... ?
         }
 
-        System.out.println(searchTerm);
-        System.out.println(ids);
         index = 0;
         return ids;
     }

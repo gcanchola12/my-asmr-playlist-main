@@ -1,9 +1,11 @@
 package edu.launchcode.asmrplaylist.backend.client.YoutubeObjects;
 
+// each item object contains all of the information for a video
+
 public class Item {
     private String kind;
     private String etag;
-    private Id id;
+    private Id id; // object that contains the video Id that will be used in controller
 
     public Item(String kind, String etag, Id id) {
         this.kind = kind;
