@@ -11,7 +11,7 @@ import java.util.Arrays;
 import static edu.launchcode.asmrplaylist.backend.client.YoutubeConstants.API_KEY;
 import static edu.launchcode.asmrplaylist.backend.client.YoutubeConstants.YOUTUBE_URL;
 
-// creates connection to Youtube Data API which returns youtube videos as Json data
+// creates connection to Youtube Data API which returns youtube playlist of videos as Json data
 
 @Service
 public class YoutubeClient {
